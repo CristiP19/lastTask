@@ -1,0 +1,18 @@
+[
+  {
+    "label": "order.id",
+    "accessor": "id",
+    "sortable": true
+  },
+  {
+    "label": "order.name",
+    "accessor": "name",
+    "sortable": true,
+    "sortByOrder": "desc"
+  },
+  {
+    "label": "Price",
+    "accessor": "price",
+    "sortable": true
+  }
+]
