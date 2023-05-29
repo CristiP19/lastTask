@@ -17,7 +17,11 @@ const InfoProducts = () => {
         const response = await api.products().getById(id);
         setProducts(response);
       } catch (error) {
-        setError("An error occurred while fetching the data.");
+        if (error.message) {
+          setError(error.message);
+        } else {
+          setError("An error occurred while creating the category.");
+        }
       }
     };
     fetchData();

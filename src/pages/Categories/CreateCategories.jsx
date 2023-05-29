@@ -3,8 +3,8 @@ import api from "api";
 import TextFields from "components/common/textFields";
 import { useForm } from "react-hook-form";
 import Button from "components/common/button";
-import { yupResolver } from '@hookform/resolvers/yup';
-import CreateCategoriesValidation from 'validation/CreateCategiries';
+import { yupResolver } from "@hookform/resolvers/yup";
+import CreateCategoriesValidation from "validation/CreateCategiries";
 
 const CreateCategories = () => {
   const [error, setError] = useState("");
@@ -21,8 +21,11 @@ const CreateCategories = () => {
     try {
       await api.categories().create(data);
     } catch (error) {
-      console.log(error);
-      setError("Error");
+      if (error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while creating the category.");
+      }
     }
   };
 

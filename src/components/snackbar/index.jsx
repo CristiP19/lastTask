@@ -5,10 +5,12 @@ import Divider from "@mui/material/Divider";
 import SettingsIcon from "@mui/icons-material/Settings";
 import StyledDrawer from "./styled";
 import CloseIcon from "@mui/icons-material/CloseRounded";
-import {Typography} from "@mui/material";
+import {Alert, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
+import api from "../../api";
 
 const SidebarMenu = () => {
+  const [error, setError] = useState("");
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleOpen = () => {
@@ -19,11 +21,25 @@ const SidebarMenu = () => {
     setIsDrawerOpen(false);
   };
 
+  const handleLogout = async () => {
+      try {
+        await api.auth().logout();
+        localStorage.setItem("user", "")
+      } catch (error) {
+        if (error.message) {
+          setError(error.message);
+        } else {
+          setError("An error occurred while resetting the password.");
+        }
+    }
+  }
+
   return (
     <>
       <Button onClick={handleOpen}>
-        <SettingsIcon/>
+          <SettingsIcon/>
       </Button>
+      <Button onClick={handleLogout}>Logout</Button>
       <StyledDrawer anchor="right" open={isDrawerOpen} onClose={handleClose}>
         <Box className="drawerHeader">
           <Typography>Settings</Typography>
@@ -35,6 +51,11 @@ const SidebarMenu = () => {
         <Link to="/categoriesTable"> <Button>Categories Table</Button> </Link>
         <Link to="/productsTable"> <Button>Products Table</Button> </Link>
       </StyledDrawer>
+      {error && (
+        <Alert severity="error" style={{ marginTop: "1rem" }}>
+          {error}
+        </Alert>
+      )}
     </>
   );
 };

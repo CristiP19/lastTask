@@ -22,8 +22,11 @@ const CreateProducts = () => {
     try {
       await api.products().create(data);
     } catch (error) {
-      console.log(error)
-      setError("Error");
+      if (error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while creating the category.");
+      }
     }
   };
 

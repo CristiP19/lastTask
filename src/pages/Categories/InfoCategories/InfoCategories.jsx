@@ -17,7 +17,11 @@ const InfoCategories = () => {
         const response = await api.categories().getById(id);
         setCategories(response);
       } catch (error) {
-        setError("An error occurred while fetching the data.");
+        if (error.message) {
+          setError(error.message);
+        } else {
+          setError("An error occurred while creating the category.");
+        }
       }
     };
     fetchData();

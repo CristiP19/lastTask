@@ -12,6 +12,7 @@ import ProductsTable from "./pages/Products/ProductsTable";
 import CreateProducts from "./pages/Products/CreateProducts";
 import UpdateProduct from "./pages/Products/UpdateProduct";
 import InfoProducts from "./pages/Products/InfoProducts/InfoProducts";
+import PasswordResetPage from "./pages/PasswordResetPage";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
       <DefaultLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-
+          <Route path="/resetPassword" element={<PasswordResetPage />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
@@ -34,7 +35,6 @@ const App = () => {
           <Route path="/newProduct" element={<CreateProducts />} />
           <Route path="/products/:id/edit" element={<UpdateProduct />} />
           <Route path="/products/:id/info" element={<InfoProducts />} />
-
         </Routes>
       </DefaultLayout>
     </>

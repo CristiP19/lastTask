@@ -4,6 +4,7 @@ import columns from "pages/Products/headers.json";
 import api from "api";
 import { Link } from "react-router-dom";
 import Button from "components/common/button";
+import { Alert } from "@mui/material";
 
 const ProductsTable = () => {
   const [products, setProducts] = useState([]);
@@ -12,29 +13,49 @@ const ProductsTable = () => {
   const getProducts = async () => {
     try {
       const response = await api.products().get();
-      setProducts(response.data);
-    } catch (e) {
-      console.log(e);
+      setProducts(response);
+    } catch (error) {
+      if (error && error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while retrieving products.");
+      }
     }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.products().delete(id);
+      await getProducts();
+    } catch (error) {
+      if (error && error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while deleting the product.");
+      }
+    }
+  };
+
+  const handleDismissError = () => {
+    setError("");
   };
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await api.products().delete(id);
-    } catch (error) {
-      setError("An error occurred while deleting the data.");
-    }
-  };
-
   return (
     <>
       <Link to="/newProduct">
         <Button>Add new Products</Button>
       </Link>
+
+      {error && (
+        <Alert severity="error" onClose={handleDismissError}>
+          {error}
+        </Alert>
+      )}
+
       <div>
         <Table
           handleRefresh={getProducts}
@@ -47,4 +68,5 @@ const ProductsTable = () => {
     </>
   );
 };
+
 export default ProductsTable;

@@ -10,24 +10,6 @@ const commonInputStyles = {
   },
 };
 
-const StyledSelectInput = styled("div")(() => ({
-  width: "100%",
-  ".MuiInputBase-root": {
-    borderRadius: "20px",
-    backgroundColor: "#FFFFFF",
-    border: "none",
-    "&:focus": {
-      outline: "none",
-    },
-  },
-  "#small": {
-    width: "220px",
-  },
-  "#large": {
-    width: "100%",
-  },
-}));
-
 const StyledPasswordInput = styled("div")(() => ({
   ".css-1vi09us-MuiInputBase-root-MuiOutlinedInput-root": {
     ...commonInputStyles,
@@ -35,4 +17,4 @@ const StyledPasswordInput = styled("div")(() => ({
   },
 }));
 
-export {StyledSelectInput, StyledPasswordInput };
+export { StyledPasswordInput };

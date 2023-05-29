@@ -22,7 +22,11 @@ const UpdateCategories = () => {
     try {
       await api.categories().update(id, data);
     } catch (error) {
-      setError("An error occurred while updating the data.");
+      if (error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while creating the category.");
+      }
     }
   };
 
@@ -32,7 +36,11 @@ const UpdateCategories = () => {
       reset(response)
       setCategories(response);
     } catch (error) {
-      setError("An error occurred while fetching the data.");
+      if (error.message) {
+        setError(error.message);
+      } else {
+        setError("An error occurred while creating the category.");
+      }
     }
   };
 

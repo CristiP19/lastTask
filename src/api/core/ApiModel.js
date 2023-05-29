@@ -9,9 +9,6 @@ export default class ApiModel {
   async get() {
     return await this.http.get(this.resourceUrl) ;
   }
-  async getList() {
-    return await this.http.get(`${this.resourceUrl}/list`);
-  }
   async getById(id) {
     return await this.http.get(`${this.resourceUrl}/${id}`);
   }
